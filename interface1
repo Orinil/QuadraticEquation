@@ -1,73 +1,139 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 import static java.awt.Font.*;
 
 public class Main extends JFrame implements ActionListener {
 
-    public static void main(String[] args) {
+
+    JButton buttonCalculate = new JButton("Calculate");
+    JButton buttonASubmit = new JButton("Submit 'a'");
+    JButton buttonBSubmit = new JButton("Submit 'b'");
+    JButton buttonCSubmit = new JButton("Submit 'c'");
+    JTextField defaultQuadraticEquation = new JTextField("                ax2 + bx + c = 0");
+    JLabel labelA = new JLabel("'a' =");
+    JLabel labelB = new JLabel("'b' =");
+    JLabel labelC = new JLabel("'c' =");
+    JLabel labelX1 = new JLabel("x1 =");
+    JLabel labelX2 = new JLabel("x2 =");
+    JTextField resultFieldX1 = new JTextField();
+    JTextField resultFieldX2 = new JTextField();
+    JButton buttonReset = new JButton("Reset");
+    JTextField textField_a = new JTextField();
+    JTextField textField_b = new JTextField();
+    JTextField textField_c = new JTextField();
+
+    Main() {
+        defaultQuadraticEquation.setFont(new Font("Century", BOLD, 12));
+        defaultQuadraticEquation.setBackground(Color.LIGHT_GRAY);
+        defaultQuadraticEquation.setForeground(Color.BLACK);
+        defaultQuadraticEquation.setEditable(false);
+        defaultQuadraticEquation.setBounds(20, 12, 190, 25);
+
+        textField_a.setFont(new Font("Century", BOLD, 20));
+        textField_a.setBackground(Color.LIGHT_GRAY);
+        textField_a.setForeground(Color.BLACK);
+        textField_a.setBounds(65, 50, 35, 35);
+
+        textField_b.setFont(new Font("Century", BOLD, 20));
+        textField_b.setBackground(Color.LIGHT_GRAY);
+        textField_b.setForeground(Color.BLACK);
+        textField_b.setBounds(65, 100, 35, 35);
 
 
-        JButton buttonCalculate = new JButton("Calculate");
-        JButton buttonX1 = new JButton("Submit x1");
-        JButton buttonX2 = new JButton("Submit x2");
+        textField_c.setFont(new Font("Century", BOLD, 20));
+        textField_c.setBackground(Color.LIGHT_GRAY);
+        textField_c.setForeground(Color.BLACK);
+        textField_c.setBounds(65, 150, 35, 35);
 
-        JTextField instructions = new JTextField();
-        instructions.setBounds(20,20,190,60);
-        instructions.setText("Simply insert the values of x1 and x2 to corresponding boxes and click \"Submit\" for both. Then click \"Calculate\" ");
+        buttonASubmit.setOpaque(true);
+        buttonASubmit.setBounds(110, 50, 100, 35);
+        buttonASubmit.setFocusable(false);
 
-        JTextField textFiled_x1 = new JTextField();
-        textFiled_x1.setBounds(130,80,80,35);
-        textFiled_x1.setFont(new Font("Century", BOLD, 12));
-        textFiled_x1.setText("  Value of x1");
-        textFiled_x1.setBackground(Color.LIGHT_GRAY);
+        buttonBSubmit.setOpaque(true);
+        buttonBSubmit.setBounds(110, 100, 100, 35);
+        buttonBSubmit.setFocusable(false);
 
-        JTextField textField_x2 = new JTextField();
-        textField_x2.setText("  Value of x2");
-        textField_x2.setFont(new Font("Century", BOLD, 12));
-        textField_x2.setBackground(Color.LIGHT_GRAY);
-        textField_x2.setBounds(130,130,80,35);
-
-
-        buttonX1.setOpaque(true);
-        buttonX1.setBounds(20,80,100,35);
-
-
-        buttonX2.setOpaque(true);
-        buttonX2.setBounds(20,130,100, 35);
+        buttonCSubmit.setOpaque(true);
+        buttonCSubmit.setBounds(110, 150, 100, 35);
+        buttonCSubmit.setFocusable(false);
 
         buttonCalculate.setOpaque(true);
-        buttonCalculate.setBounds(20,200,190,27);
-        buttonCalculate.setVerticalAlignment(JButton.BOTTOM);
+        buttonCalculate.setBounds(20, 200, 190, 27);
+        buttonCalculate.setFocusable(false);
 
+        labelA.setBounds(30,54,30,30);
+        labelA.setFont(new Font("Century", BOLD,15));
+        labelB.setBounds(30,105,30,30);
+        labelB.setFont(new Font("Century", BOLD,15));
+        labelC.setBounds(30,154,30,30);
+        labelC.setFont(new Font("Century", BOLD,15));
+        labelX1.setBounds(70, 250, 30, 30);
+        labelX2.setBounds(70, 290, 30, 30);
+
+        resultFieldX1.setBounds(100, 250, 30, 30);
+
+        resultFieldX2.setBounds(100, 290, 30, 30);
+
+        buttonReset.setBounds(160, 332, 67, 23);
+        buttonReset.setFocusable(false);
 
         JFrame frame = new JFrame();
-        //JButton buttonCalculate = null;
-        JPanel panel;
 
-        int num1, num2, num3;
-
+        String num1, num2, num3;
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.setSize(250, 480);
+        frame.setSize(250, 400);
         frame.setTitle("Quadratic Equation");
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setLayout(null);
-        frame.add(buttonX1);
-        frame.add(textFiled_x1);
-        frame.add(buttonX2);
-        frame.add(textField_x2);
+
+        frame.add(defaultQuadraticEquation);
+        frame.add(buttonASubmit);
+        frame.add(textField_a);
+        frame.add(buttonBSubmit);
+        frame.add(textField_b);
+        frame.add(buttonCSubmit);
+        frame.add(textField_c);
         frame.add(buttonCalculate);
-        frame.add(instructions);
+        frame.add(resultFieldX1);
+        frame.add(resultFieldX2);
+        frame.add(labelA);
+        frame.add(labelB);
+        frame.add(labelC);
+        frame.add(labelX1);
+        frame.add(labelX2);
+        frame.add(buttonReset);
+    }
 
+    public static void main(String[] args) {
+
+        Main quadraticEquation = new Main();
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == buttonReset) {
+            textField_a.setText("");
+            textField_b.setText("");
+            textField_c.setText("");
         }
-
-        @Override
-        public void actionPerformed (ActionEvent e){
-
+        if (e.getSource() == buttonASubmit) {
+            String num1 = textField_a.getText();
+            double num1Double = Double.parseDouble(num1);
+        }
+        if (e.getSource() == buttonBSubmit) {
+            String num2 = textField_b.getText();
+            double num2Double = Double.parseDouble(num2);
+        }
+        if (e.getSource() == buttonCSubmit) {
+            String num3 = textField_c.getText();
+            double num3Double = Double.parseDouble(num3);
         }
     }
+
+}

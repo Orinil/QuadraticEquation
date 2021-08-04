@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
 import static java.awt.Font.*;
 
 public class Main extends JFrame implements ActionListener {
@@ -23,8 +22,23 @@ public class Main extends JFrame implements ActionListener {
     JTextField textField_a = new JTextField();
     JTextField textField_b = new JTextField();
     JTextField textField_c = new JTextField();
+    JLabel insertedA = new JLabel("a = ");
+    JLabel insertedB = new JLabel("b = ");
+    JLabel insertedC = new JLabel("c = ");
+    JLabel headerInserted = new JLabel("Inserted values:");
+    JLabel message = new JLabel();
 
-    Main() {
+    public double num1Double;
+    public double num2Double;
+    public double num3Double;
+
+
+
+    Main()
+
+
+
+    {
         defaultQuadraticEquation.setFont(new Font("Century", BOLD, 12));
         defaultQuadraticEquation.setBackground(Color.LIGHT_GRAY);
         defaultQuadraticEquation.setForeground(Color.BLACK);
@@ -50,18 +64,22 @@ public class Main extends JFrame implements ActionListener {
         buttonASubmit.setOpaque(true);
         buttonASubmit.setBounds(110, 50, 100, 35);
         buttonASubmit.setFocusable(false);
+        buttonASubmit.addActionListener(this);
 
         buttonBSubmit.setOpaque(true);
         buttonBSubmit.setBounds(110, 100, 100, 35);
         buttonBSubmit.setFocusable(false);
+        buttonBSubmit.addActionListener(this);
 
         buttonCSubmit.setOpaque(true);
         buttonCSubmit.setBounds(110, 150, 100, 35);
         buttonCSubmit.setFocusable(false);
+        buttonCSubmit.addActionListener(this);
 
         buttonCalculate.setOpaque(true);
-        buttonCalculate.setBounds(20, 200, 190, 27);
+        buttonCalculate.setBounds(20, 250, 190, 27);
         buttonCalculate.setFocusable(false);
+        buttonCalculate.addActionListener(this);
 
         labelA.setBounds(30,54,30,30);
         labelA.setFont(new Font("Century", BOLD,15));
@@ -69,23 +87,33 @@ public class Main extends JFrame implements ActionListener {
         labelB.setFont(new Font("Century", BOLD,15));
         labelC.setBounds(30,154,30,30);
         labelC.setFont(new Font("Century", BOLD,15));
-        labelX1.setBounds(70, 250, 30, 30);
-        labelX2.setBounds(70, 290, 30, 30);
+        labelX1.setBounds(30, 290, 30, 30);
+        labelX2.setBounds(30, 330, 30, 30);
 
-        resultFieldX1.setBounds(100, 250, 30, 30);
+        resultFieldX1.setBounds(60, 290, 140, 30);
 
-        resultFieldX2.setBounds(100, 290, 30, 30);
+        resultFieldX2.setBounds(60, 330, 140, 30);
 
-        buttonReset.setBounds(160, 332, 67, 23);
+        buttonReset.setBounds(160, 400, 67, 23);
         buttonReset.setFocusable(false);
+        buttonReset.addActionListener(this);
+
+        headerInserted.setBounds(20,190,170,30);
+
+        insertedA.setBounds(40, 220, 67, 23);
+        insertedB.setBounds(100, 220, 67, 23);
+        insertedC.setBounds(160, 220, 67, 23);
+
+        message.setBounds(20, 365, 200, 30);
+        message.setFont(new Font("Century", BOLD, 15));
+        message.setForeground(Color.RED);
+
+
 
         JFrame frame = new JFrame();
 
-        String num1, num2, num3;
-        frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        frame.setSize(250, 400);
+        frame.setSize(250, 470);
         frame.setTitle("Quadratic Equation");
         frame.setResizable(false);
         frame.setVisible(true);
@@ -107,12 +135,16 @@ public class Main extends JFrame implements ActionListener {
         frame.add(labelX1);
         frame.add(labelX2);
         frame.add(buttonReset);
+        frame.add(headerInserted);
+        frame.add(insertedA);
+        frame.add(insertedB);
+        frame.add(insertedC);
+        frame.add(message);
     }
 
     public static void main(String[] args) {
 
         Main quadraticEquation = new Main();
-
     }
 
     @Override
@@ -121,19 +153,42 @@ public class Main extends JFrame implements ActionListener {
             textField_a.setText("");
             textField_b.setText("");
             textField_c.setText("");
+            insertedA.setText("a = ");
+            insertedB.setText("b = ");
+            insertedC.setText("c = ");
+            resultFieldX1.setText(" ");
+            resultFieldX2.setText(" ");
+            message.setText(" ");
         }
         if (e.getSource() == buttonASubmit) {
             String num1 = textField_a.getText();
-            double num1Double = Double.parseDouble(num1);
+            this.num1Double = Double.parseDouble(num1);
+            textField_a.setText("");
+            insertedA.setText("a = " + num1Double);
         }
         if (e.getSource() == buttonBSubmit) {
             String num2 = textField_b.getText();
-            double num2Double = Double.parseDouble(num2);
+            this.num2Double = Double.parseDouble(num2);
+            textField_b.setText("");
+            insertedB.setText("b = " + num2Double);
         }
         if (e.getSource() == buttonCSubmit) {
             String num3 = textField_c.getText();
-            double num3Double = Double.parseDouble(num3);
+            this.num3Double = Double.parseDouble(num3);
+            textField_c.setText("");
+            insertedC.setText("c = " + num3Double);
+        }
+        double discriminant = Math.pow(num2Double , 2) - (4 * num1Double * num3Double);
+        double discriminantSquareRoot = Math.sqrt(discriminant);
+        if (discriminant < 0) {message.setText("Discriminant is negative (!)");}
+        else {message.setText(" ");}
+
+        double resultX1 = ((- 1 * num2Double) + discriminantSquareRoot ) / (2 * num1Double);
+        double resultX2 = ((- 1 * num2Double) - discriminantSquareRoot ) / (2 * num1Double);
+
+        if (e.getSource() == buttonCalculate) {
+            resultFieldX1.setText(String.valueOf(resultX1));
+            resultFieldX2.setText(String.valueOf(resultX2));
         }
     }
-
 }
